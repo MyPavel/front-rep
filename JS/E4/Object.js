@@ -22,3 +22,4 @@ console.log('c'  in obj);
 'b' in obj; // false
 
 'c' in obj; // true
+
