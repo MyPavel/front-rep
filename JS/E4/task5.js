@@ -13,7 +13,7 @@ class Device {
   
   class Phone extends Device {
     constructor(name, power, plugged, type) {
-        super(name, power, plugged)
+        super(name, power, plugged);
         this.name = name;
         this.power = power;
         this.plugged = plugged;
@@ -25,7 +25,7 @@ class Device {
 
   class Laptop extends Device {
     constructor(name, power, plugged, weight) {
-        super(name, power, plugged)
+        super(name, power, plugged);
         this.name = name;
         this.power = power;
         this.plugged = plugged;
@@ -37,7 +37,7 @@ class Device {
     
   class Monitor extends Device {
     constructor(name, power, plugged, diagonal) {
-        super(name, power, plugged)
+        super(name, power, plugged);
         this.name = name;
         this.power = power;
         this.plugged = plugged;
