@@ -57,8 +57,8 @@ const es1 = new exampleClass("two", "3")
 
 const cc2 = new childClass(4, 6)
 
-console.log(es1.__proto__)
+console.log(es1)
 console.log(cc2.__proto__)
 console.log(cc2.__proto__.__proto__)
 console.log(cc2.__proto__.__proto__.__proto__)
-console.log(cc2.__proto__.__proto__.__proto__.__proto__)
+console.log(cc2)
