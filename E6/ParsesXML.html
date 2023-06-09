@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <script>
+      const xmlString = `
+      <list>
+        <student>
+          <name lang="en">
+            <first>Ivan</first>
+            <second>Ivanov</second>
+          </name>
+        <age>35</age>
+        <prof>teacher</prof>
+        </student>
+        <student>
+          <name lang="ru">
+            <first>Петр</first>
+            <second>Петров</second>
+          </name>
+          <age>58</age>
+          <prof>driver</prof>
+        </student>
+      </list>`;
+
+      const xmlDocument = new DOMParser().parseFromString(xmlString, "text/xml");
+
+      // console.log(xmlDocument)
+      const students = xmlDocument.querySelectorAll("student");
+
+      for (const student of students) {
+        const name = student.querySelector("first").textContent + " " + student.querySelector("second").textContent;
+        const age = student.querySelector("age").textContent;
+        const lang = student.querySelector("name").getAttribute("lang");
+
+        console.log(`Имя: ${name}, возраст: ${age}, язык: ${lang}`)
+      }
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
