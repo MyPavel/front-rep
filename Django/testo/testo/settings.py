@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'shop',
 
-    # подключаем ещё приложения
+    # подключаем flatpages
     'django.contrib.sites',
     'django.contrib.flatpages',
 ]
