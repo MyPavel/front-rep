@@ -1,27 +1,7 @@
-streaming = ['netflix', 'hulu', 'disney+', 'appletv+']
-platform1 = 'netflix'
-platform2 = 'hulu'
+def high_and_low(numbers):
+    nums = [int(i) for i in numbers.split()]
+    return " ".join([str(max(nums)), str(min(nums))])
 
 
-for i in range(len(streaming)):
-       if streaming[i] == platform1:
-           print("Platform1 is found")
- 
-for i in range(len(streaming)):
-       if streaming[i] == platform2:
-           print("Platform2 is found")
-
-
-def search(list, platform):
-   for i in range(len(list)):
-       if list[i] == platform:
-           return True
-   return False
-
-if __name__ == "__main__":
-  streaming = ['netflix', 'hulu', 'disney+', 'appletv+']
-  platform1 = 'netflix'
-  platform2 = 'hulu'
-
-  print(f"Platform1 found: {search(streaming,platform1)}")
-  print(f"Platform2 found: {search(streaming,platform2)}")
+print(high_and_low("8 3 -5 42 -1 0 0 -9 4 7 4 -4"))
+print(high_and_low("1 2 3"))
