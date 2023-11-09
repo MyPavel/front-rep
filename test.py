@@ -1,7 +1,8 @@
-def high_and_low(numbers):
-    nums = [int(i) for i in numbers.split()]
-    return " ".join([str(max(nums)), str(min(nums))])
+import re
 
+str = '3 tovara'
+pat = r'\d+. \d'
 
-print(high_and_low("8 3 -5 42 -1 0 0 -9 4 7 4 -4"))
-print(high_and_low("1 2 3"))
+match = re.search(pat, str)
+
+print(match)
