@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Private chat</title>
+</head>
+<body>
+<h1>Private chat between {{ chat.user1 }} and {{ chat.user2 }}</h1>
+
+<textarea id="chat-messages" cols="100" rows="20" readonly></textarea>
+<input id="chat-message-input" type="text" size="100"><br>
+<input id="chat-message-submit" type="button" value="Send">
+
+<br/><br/>
+<a href="{% url 'index' %}"><button>Back</button></a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to retrieve chat history
+      function getChatHistory() {
+        // Extract chat ID from the URL
+        var url = window.location.href;
+        var regex = /\/([^\/]+)\/$/;
+        var match = regex.exec(url);
+        var chatId = match[1];
+        const currentUserID = {{ request.user.id }}
+        var chatMessages = document.getElementById('chat-messages');
+
+        fetch('http://127.0.0.1:8000/api/private_chats/' + chatId + '/', {
+          headers: {
+                     'X-CSRFToken': '{{ csrf_token }}'
+          }
+          })
+          .then(response => response.json())
+          .then(data => {
+            chatMessages.value = ''; // Clear the existing messages before appending the new ones
+            data.forEach(message => {
+               chatMessages.value += `${message.sender_username}: ` + `${message.text}` + '\n' + '\n';
+            });
+          })
+          .catch(error => console.log(error));
+      }
+
+      // Call the function to retrieve chat history
+      getChatHistory();
+
+      // Message input logic
+
+            var url = window.location.href;
+            var regex = /\/([^\/]+)\/$/;
+            var match = regex.exec(url);
+            var chatID = match[1];
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/private_chat/'
+            + chatID
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-messages').value += `${data.message.sender_username}: ` + data.message.text + '\n' + '\n';
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+      });
+  </script>
+
+</body>
+</html>
